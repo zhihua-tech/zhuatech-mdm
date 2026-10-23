@@ -1,0 +1,54 @@
+[
+  {
+    "patch": {},
+    "expected": {
+      "decision": "PASS",
+      "completenessPct": "#100"
+    },
+    "error": false
+  },
+  {
+    "patch": {
+      "filledFields": "19"
+    },
+    "expected": {
+      "decision": "HOLD",
+      "missingFields": "#1"
+    },
+    "error": false
+  },
+  {
+    "patch": {
+      "ownerConfirmed": "NO"
+    },
+    "expected": {
+      "decision": "REVIEW"
+    },
+    "error": false
+  },
+  {
+    "patch": {
+      "codeConflicts": "1"
+    },
+    "expected": {
+      "decision": "HOLD"
+    },
+    "error": false
+  },
+  {
+    "patch": {
+      "expiredReferences": "1"
+    },
+    "expected": {
+      "decision": "HOLD"
+    },
+    "error": false
+  },
+  {
+    "patch": {
+      "filledFields": "21"
+    },
+    "expected": {},
+    "error": true
+  }
+]
