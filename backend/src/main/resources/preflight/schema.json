@@ -1,0 +1,83 @@
+{
+  "slug": "mdm",
+  "title": "主数据编码与记录合并预检",
+  "fields": [
+    {
+      "key": "record_no",
+      "label": "记录编码",
+      "type": "ID",
+      "length": 200
+    },
+    {
+      "key": "name",
+      "label": "标准名称",
+      "type": "TEXT",
+      "length": 200
+    },
+    {
+      "key": "category",
+      "label": "类别",
+      "type": "ENUM",
+      "length": 200,
+      "options": [
+        "MATERIAL",
+        "CUSTOMER",
+        "SUPPLIER"
+      ]
+    },
+    {
+      "key": "status",
+      "label": "状态",
+      "type": "ENUM",
+      "length": 200,
+      "options": [
+        "ACTIVE",
+        "INACTIVE",
+        "MERGED"
+      ]
+    },
+    {
+      "key": "source_code",
+      "label": "来源编码",
+      "type": "ID",
+      "length": 200
+    },
+    {
+      "key": "target_code",
+      "label": "保留编码",
+      "type": "ID",
+      "length": 200
+    }
+  ],
+  "unique": [
+    [
+      "record_no"
+    ],
+    [
+      "category",
+      "source_code"
+    ]
+  ],
+  "rules": [
+    {
+      "op": "DIFFERENT",
+      "args": [
+        "source_code",
+        "target_code"
+      ],
+      "code": "SELF_MERGE",
+      "message": "来源编码与保留编码不能相同",
+      "bad": {
+        "target_code": "SOURCE-01"
+      }
+    }
+  ],
+  "sampleCsv": "record_no,name,category,status,source_code,target_code\nMD-001,示例物料,MATERIAL,ACTIVE,SOURCE-01,TARGET-01\n",
+  "limits": {
+    "rows": 500,
+    "bytes": 262144,
+    "columns": 32,
+    "cellCharacters": 4000
+  },
+  "scope": "Read-only batch validation; no persistence, reference-master lookup or full production certification."
+}
